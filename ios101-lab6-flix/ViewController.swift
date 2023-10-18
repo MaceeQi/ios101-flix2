@@ -66,9 +66,28 @@ class ViewController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
 
         fetchMovies()
+        
+        // Display a large navigation bar title style
+        navigationController?.navigationBar.prefersLargeTitles = true
+
     }
     
     
+    // Unselect row when returning from detail view
+    override func viewWillAppear(_ animated: Bool) {
+        // Customary to call the overridden method on `super` any time you override a method.
+        super.viewWillAppear(animated)
+
+        // get the index path for the selected row
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+
+            // Deselect the currently selected row
+            tableView.deselectRow(at: selectedIndexPath, animated: animated)
+        }
+    }
+    
+    
+    // Pass data to destination view controllers (connected via segue)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // MARK: - Pass the selected movie data
 
